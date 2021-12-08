@@ -1,5 +1,6 @@
 package com.byfan.springboottemplate.service;
 
+import com.byfan.springboottemplate.exception.SpringBootTemplateException;
 import com.byfan.springboottemplate.model.UserEntity;
 
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.List;
  */
 public interface UserService {
 
-    UserEntity save(UserEntity user);
+    UserEntity save(UserEntity user) throws SpringBootTemplateException;
 
-    List<UserEntity> getAll();
+    List<UserEntity> getAll() throws SpringBootTemplateException;
 
-    UserEntity getById(Long id);
+    UserEntity getById(Long id) throws SpringBootTemplateException;
 }

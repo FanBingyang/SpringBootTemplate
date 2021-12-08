@@ -1,4 +1,4 @@
-package com.byfan.springboottemplate.jpa;
+package com.byfan.springboottemplate.dao;
 
 import com.byfan.springboottemplate.model.UserEntity;
 
