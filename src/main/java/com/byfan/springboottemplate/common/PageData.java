@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @Description 分页数据格式
  * @Author: byfan
- * @Description
- * @Version 1.0
- * @Date: 2021/12/8 21:23
+ * @Date: 2022/03/07 23:30
  */
 @Data
 @ToString
@@ -27,4 +26,3 @@ public class PageData<T> {
         return total % pageSize == 0 ? (total / pageSize) : ((totalPage / pageSize) + 1);
     }
 }
-

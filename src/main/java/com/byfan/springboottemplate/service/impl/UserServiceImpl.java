@@ -3,7 +3,7 @@ package com.byfan.springboottemplate.service.impl;
 import com.byfan.springboottemplate.common.CommonResponse;
 import com.byfan.springboottemplate.exception.SpringBootTemplateException;
 import com.byfan.springboottemplate.model.UserEntity;
-import com.byfan.springboottemplate.dao.UserJap;
+import com.byfan.springboottemplate.dao.UserDao;
 import com.byfan.springboottemplate.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserJap userJap;
+    private UserDao userDao;
 
     /**
      * 新增/修改用户信息
@@ -34,15 +34,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity save(UserEntity user) throws SpringBootTemplateException {
         if (StringUtils.isEmpty(user.getName())){
-            log.error("save userName is null");
-            throw new SpringBootTemplateException("userName is null",CommonResponse.PARAM_ERROR);
+            log.error("save userName is null!");
+            throw new SpringBootTemplateException(CommonResponse.PARAM_ERROR,"save userName is null!");
         }
-        return userJap.save(user);
+        return userDao.save(user);
     }
 
     @Override
     public List<UserEntity> getAll() throws SpringBootTemplateException {
-        return userJap.findAll();
+        return userDao.findAll();
     }
 
     /**
@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getById(Long id) throws SpringBootTemplateException {
         if (id == null){
-            log.error("getById id is null");
-            throw new SpringBootTemplateException("id is null",CommonResponse.PARAM_ERROR);
+            log.error("getById id is null!");
+            throw new SpringBootTemplateException(CommonResponse.PARAM_ERROR,"getById id is null!");
         }
-        Optional<UserEntity> optional = userJap.findById(id);
+        Optional<UserEntity> optional = userDao.findById(id);
         if (optional.isPresent()){
             return optional.get();
         }

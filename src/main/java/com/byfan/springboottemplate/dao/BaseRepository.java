@@ -6,12 +6,10 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 /**
- * @Author: FBY
  * @Description 基础Dao类
- * @Version 1.0
- * @Date: 2021/7/25 23:24
+ * @Author: byfan
+ * @Date: 2022/03/07 23:30
  */
-
 @NoRepositoryBean
 public interface BaseRepository<T,PK extends Serializable> extends JpaRepository<T,PK> {
 }

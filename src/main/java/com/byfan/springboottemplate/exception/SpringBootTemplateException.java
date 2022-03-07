@@ -6,25 +6,27 @@ import com.byfan.springboottemplate.common.CommonResponse;
  * @Author: byfan
  * @Description 服务端抛出异常
  * @Version 1.0
- * @Date: 2021/12/8 21:35
+ * @Date: 2022/03/07 23:30
  */
 public class SpringBootTemplateException extends Exception{
 
     private Integer errorCode;
 
-    public SpringBootTemplateException(Integer errorCode) {
-        super(CommonResponse.STATUS_DEFAULT_MESSAGE.get(errorCode));
-        this.errorCode = errorCode;
+    public SpringBootTemplateException(CommonResponse commonResponse) {
+        super(commonResponse.msg);
+        this.errorCode = commonResponse.code;
     }
 
     public SpringBootTemplateException(String message) {
         super(message);
+        this.errorCode = CommonResponse.UNKNOWN_ERROR.code;
     }
 
-    public SpringBootTemplateException(String message, Integer errorCode) {
+    public SpringBootTemplateException(CommonResponse commonResponse, String message) {
         super(message);
-        this.errorCode = errorCode;
+        this.errorCode = commonResponse.code;
     }
+
 
     public Integer getErrorCode() {
         return errorCode;

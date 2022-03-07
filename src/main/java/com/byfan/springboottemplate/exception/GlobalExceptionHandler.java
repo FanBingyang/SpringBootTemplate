@@ -1,7 +1,7 @@
 package com.byfan.springboottemplate.exception;
 
 import com.byfan.springboottemplate.common.CommonResponse;
-import com.byfan.springboottemplate.common.ObjectResponse;
+import com.byfan.springboottemplate.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * @Author: byfan
  * @Description 异常统一处理类
- * @Version 1.0
- * @Date: 2021/12/8 21:34
+ * @Author: byfan
+ * @Date: 2022/03/07 23:30
  */
 @RestControllerAdvice       // 捕获全局异常
 @Order(1)                   // 类加载顺序
@@ -23,26 +22,25 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SpringBootTemplateException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ObjectResponse exception(SpringBootTemplateException e) {
-        ObjectResponse response = new ObjectResponse();
+    public BaseResponse exception(SpringBootTemplateException e) {
+        BaseResponse response = new BaseResponse();
         response.setCode(e.getErrorCode());
         if (StringUtils.isNotEmpty(e.getMessage())) {
-            response.setMessage(e.getMessage());
+            response.setMsg(e.getMessage());
         }
         //打印错误日志，方便跟踪
         StackTraceElement stackTraceElement = e.getStackTrace()[0];
         log.warn("Throw exception location: {}  Exception reason: {}",
-                stackTraceElement.toString(), response.getMessage());
+                stackTraceElement.toString(), response.getMsg());
         return  response;
     }
 
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ObjectResponse exception(Exception e) {
+    public BaseResponse exception(Exception e) {
         log.error("Exception:", e);
-        ObjectResponse response = new ObjectResponse();
-        response.setCode(CommonResponse.UNKNOWN_ERROR);
-        return  response;
+        BaseResponse response = new BaseResponse(CommonResponse.UNKNOWN_ERROR);
+        return response;
     }
 }
